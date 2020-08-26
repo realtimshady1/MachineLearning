@@ -1,2 +1,2 @@
-# NumericalAutoencoder
-A convolutional autoencoder neural network to identify custom image inputs of handwritten numbers
+# Autoencoders
+A project containing various autoencoder neural networks
