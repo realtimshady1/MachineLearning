@@ -25,16 +25,13 @@ The anomaly detection script is a simple method of detecting likely anomalies wi
 ## Components
 The **Gaussian distribution** (normal distribution) is a formula for the likelihood for a particu4lar value to be a part of a dataset. The distribution can be described using two variables which is it's mean *$\mu$*, and its variance *$\sigma^{2}$* in the following:
 
-$$
-  X \sim \mathcal{N}(\mu,\,\sigma^{2})\,.
-$$
+<p align="center"><img src="https://render.githubusercontent.com/render/math?math=X \sim \mathcal{N}(\mu,\,\sigma^{2})\," height="30"></p>
+
  The **F1-score** is a averaged computation between *precision (P\)* and *recall (R\)* in an algorithm's performance. Precision and recall are important metrics in a learning algorithm as they capture inefficiencies caused by skewed data shown in the count of *True Positives (TP), False Positives (FP)* and *False Negatives (FN)*.
- $$P = \frac{TP}{TP+FP
-} $$ 
- $$R = \frac{TP}{TP+FN
-} $$ 
- $$F1 = 2\frac{PR}{P+R
-} $$ 
+ <p align="center"><img src="https://render.githubusercontent.com/render/math?math=P = \frac{TP}{TP %2B FP}"  height="50"></p>
+ <p align="center"><img src="https://render.githubusercontent.com/render/math?math=R = \frac{TP}{TP %2B FN}"  height="50"></p>
+ <p align="center"><img src="https://render.githubusercontent.com/render/math?math=F1 = 2\frac{PR}{P %2B R} "  height="50"></p>
+
  
-## Limitation
+## Limitations
 The decision bounds of a normal distribution on one axis is between two points. This limits the effectiveness for any distribution that does not fit a normal curve, such as a distribution with two peaks or skewed data. A future solution could include a gradient descent to find the most suitable boundaries.
