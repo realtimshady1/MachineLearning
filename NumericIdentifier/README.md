@@ -22,7 +22,7 @@ The number identifier using the MNIST dataset is the first neural network that m
 a. `python NumericIdentifer.py`
 > This program will by default display the datapoint index of 60, which is a '7'
 
-### Output
+## Output
 A training that shows the accuracy improvement over the training iterations should look like the following:
 <p align="center">  <img src="images/trainingPlot.png">  </p>
 
