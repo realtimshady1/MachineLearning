@@ -1,5 +1,4 @@
 # Importing required libraries
-# Keras
 import keras
 from keras import regularizers
 from keras.preprocessing import sequence
@@ -11,13 +10,9 @@ from keras.layers import Input, Flatten, Dropout, Activation, BatchNormalization
 from keras.layers import Conv1D, MaxPooling1D, AveragePooling1D
 from keras.utils import np_utils, to_categorical
 from keras.callbacks import ModelCheckpoint
-
-# sklearn
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-
-# Other  
 import librosa
 import librosa.display
 import json
@@ -44,12 +39,11 @@ sample_rate, samples = wavfile.read(data_path + data_folder[1] + filename)
 # Play Audio
 ipd.Audio(samples, rate=sample_rate)
 
-
-
 # Convert to MFCC co-efficient
 dataset = pd.DataFrame(columns=['feature'])
 labels = []
 
+# Cycle through each datafile
 i = 0
 j = 0
 for group in data_folder:
@@ -60,31 +54,31 @@ for group in data_folder:
 
         labels.append(data_group[j])
         dataset.loc[i] = [mfccs]
-        i = i+1
+        i = i + 1
     j = j + 1
-        
+
+# Convert dataset to array and fill blanks
 dataset = pd.DataFrame(dataset['feature'].values.tolist())
 dataset = dataset.fillna(0)
-
-np.shape(dataset)
 
 # Create training sets and test sets
 x_train, x_test, y_train, y_test = train_test_split(dataset, labels, test_size=0.3, shuffle=True)
 
-# Preprocess data
+# Preprocess data by Gaussian normalization
 mean = np.mean(x_train, axis=0)
 std = np.std(x_train, axis=0)
 x_train = (x_train - mean)/std
-
 mean = np.mean(x_test, axis=0)
 std = np.std(x_test, axis=0)
 x_test = (x_test - mean)/std
 
+# Convert to array
 x_train = np.array(x_train)
 y_train = np.array(y_train)
 x_test = np.array(x_test)
 y_test = np.array(y_test)
 
+# Convert to numeric labels
 lb = LabelEncoder()
 y_train = np_utils.to_categorical(lb.fit_transform(y_train))
 y_test = np_utils.to_categorical(lb.fit_transform(y_test))
@@ -117,9 +111,11 @@ model.add(Dense(32, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(2, activation='softmax'))
 
+# Train the model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model_history=model.fit(x_train, y_train, batch_size=16, epochs=25, validation_data=(x_test, y_test))
 
+# Plot the training results
 plt.plot(model_history.history['loss'])
 plt.plot(model_history.history['val_loss'])
 plt.title('model loss')
@@ -128,5 +124,6 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
+# Evaluate the model accuracy
 score = model.evaluate(x_test, y_test, verbose=0)
 print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1]*100))
