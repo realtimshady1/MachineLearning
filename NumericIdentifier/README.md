@@ -8,7 +8,8 @@ The number identifier using the MNIST dataset is the first neural network that m
 #### Jupyter notebook
 1. Open `NumericIdentifier.ipynb` using [Google Colab](colab.research.google.com)
 2. Modify the index value in the `Test Model` section
-	a. Notice whether the displayed image is similar to the number outputted
+	a. `index = 60`
+	b. Compare the number in the command line with the image
 >This method means that you do not have to install anything
 
 #### Local Command Line
